@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: enemy_2_Material
+  m_Shader: {fileID: 4800000, guid: 1e8a610c9e01c3648bac42585e5fc676, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _USE8NEIGHBOURHOOD_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 152e38ea98185ea4ebbb9d70294c21d0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseSmooth02:
+        m_Texture: {fileID: 2800000, guid: b1dba8b2edd32344f9b14ea50f5cce76, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample1:
+        m_Texture: {fileID: 8551233293290897684}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample2:
+        m_Texture: {fileID: 2800000, guid: e1fef0009859a374886e06d36912ec4d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _dd:
+        m_Texture: {fileID: 8551233293290897684}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - PixelSnap: 0
+    - _ColorMask: 15
+    - _Cutoff: 0.1
+    - _Death: 1
+    - _Fill: 0
+    - _OutlineMipLevel: 0
+    - _OutlineOpaqueAlpha: 1
+    - _OutlineReferenceTexWidth: 1024
+    - _OutlineSmoothness: 1
+    - _OutlineWidth: 3
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilRef: 1
+    - _StencilWriteMask: 255
+    - _StraightAlphaInput: 0
+    - _ThresholdEnd: 0.25
+    - _Use8Neighbourhood: 1
+    - _UseScreenSpaceOutlineWidth: 0
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!28 &8551233293290897684
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: z__TextureSample1Tex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.024170290678739549},{"color":{"r":0.4905659854412079,"g":0.009255954995751381,"b":0.08098064363002777,"a":1.0},"time":0.42195773124694826},{"color":{"r":1.0,"g":0.3648259937763214,"b":0.0,"a":1.0},"time":0.7195696830749512},{"color":{"r":1.0,"g":0.8208075761795044,"b":0.0,"a":1.0},"time":0.920637845993042},{"color":{"r":1.0,"g":0.987347424030304,"b":0.8207547068595886,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 256
+  m_Height: 1
+  m_CompleteImageSize: 2048
+  m_MipsStripped: 0
+  m_TextureFormat: 17
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 2048
+  _typelessdata: 000000000000003c000000000000003c000000000000003c000000000000003c000000000000003c000000000000003c000000000000003c251c01057911003c8c207e090116003c06233e0ca318003cc024bc0d461a003cfd253b0fe81b003c3a275d10c51c003c3b281c11971d003cda28dc11681e003c78299b12391f003c172a5a130520003cb52a0d146e20003c542b6d14d720003cf22bcc143f21003c482c2c15a821003c982c8c151122003ce72ceb157922003c362d4b16e222003c852dab164a23003cd52d0a17b323003c242e6a170e24003c732eca174224003cc22e15187624003c112f4518ab24003c612f7418df24003cb02fa4181325003cff2fd4184825003c273004197c25003c4f303419b025003c76306419e525003c9e3093191926003cc630c3194d26003ced30f3198226003c1531231ab626003c3d31531aea26003c6431831a1f27003c8c31b21a5327003cb331e21a8727003cdb31121bbc27003c0332421bf027003c2a32721b1228003c5232a21b2c28003c7932d21b4628003ca132011c6128003cc932191c7b28003cf032311c9528003c1833481caf28003c4033601cc928003c6733781ce328003c8f33901cfe28003cb633a81c1829003cde33c01c3229003c0334d81c4c29003c1734f01c6629003c2a34081d8029003c3e34201d9b29003c5234381db529003c6634501dcf29003c7a34671de929003c8e347f1d032a003ca134971d1d2a003cb534af1d372a003cc934c71d522a003cdd34df1d6c2a003cf134f71d862a003c04350f1ea02a003c1835271eba2a003c2c353f1ed42a003c4035571eef2a003c54356f1e092b003c6735871e232b003c7b359e1e3d2b003c8f35b61e572b003ca335ce1e712b003cb735e61e8c2b003cca35fe1ea62b003cde35161fc02b003cf2352e1fda2b003c0636461ff42b003c1a365e1f072c003c2d36761f142c003c41368e1f212c003c5536a61f2e2c003c6936bd1f3c2c003c7d36d51f492c003c9136ed1f562c003ca4360320632c003cb8360f20702c003ccc361b207d2c003ce03627208a2c003cf4363220972c003c07373e20a42c003c1b374a20b12c003c2f375620be2c003c43376220cb2c003c57376e20d82c003c6a377a20e62c003c7e378620f32c003c92379220002d003ca6379e200d2d003cba37aa201a2d003ccd37b620272d003ce437b321282d003c00380d24162d003c0e384025052d003c1b387326f32c003c2938a627e22c003c37386c28d02c003c45380629bf2c003c5238a029ad2c003c6038392a9c2c003c6e38d32a8a2c003c7c386c2b792c003c8938032c672c003c9738502c562c003ca5389c2c452c003cb338e92c332c003cc038362d222c003cce38832d102c003cdc38cf2dfd2b003cea381c2eda2b003cf738692eb72b003c0539b62e942b003c1339022f712b003c21394f2f4e2b003c2e399c2f2b2b003c3c39e92f082b003c4a391b30e52a003c58394130c22a003c653968309f2a003c73398e307d2a003c8139b4305a2a003c8f39db30372a003c9c390131142a003caa392731f129003cb8394e31ce29003cc6397431ab29003cd3399b318829003ce139c1316529003cef39e7314229003cfd390e321f29003c0a3a3432fc28003c183a5a32d928003c263a8132b628003c343aa7329328003c413ace327028003c4f3af4324d28003c5d3a1a332a28003c6b3a41330728003c783a6733c827003c863a8e338227003c943ab4333c27003ca23ada33f726003caf3a0034b126003cbd3a14346b26003ccb3a27342526003cd93a3a34df25003ce63a4d349925003cf43a60345325003c023b73340d25003c103b8734c724003c1d3b9a348124003c2b3bad343b24003c393bc034eb23003c473bd3345f23003c543be734d322003c623bfa344722003c703b0d35bb21003c7e3b20352f21003c8b3b3335a320003c993b47351820003ca73b5a35171f003cb53b6d35001e003cc23b8035e81c003cd03b9335a11b003cde3ba7357119003cec3bba358316003cf93bcd354910003c003ce9350000003c003c0d360000003c003c32360000003c003c56360000003c003c7b360000003c003c9f360000003c003cc3360000003c003ce8360000003c003c0c370000003c003c31370000003c003c55370000003c003c7a370000003c003c9e370000003c003cc2370000003c003ce7370000003c003c06380000003c003c18380000003c003c2a380000003c003c3c380000003c003c4f380000003c003c61380000003c003c73380000003c003c85380000003c003c97380000003c003caa380000003c003cbc380000003c003cce380000003c003ce0380000003c003cf2380000003c003c05390000003c003c17390000003c003c29390000003c003c3b390000003c003c4d390000003c003c60390000003c003c72390000003c003c84390000003c003c96390000003c003ca9390000003c003cbb390000003c003ccd390000003c003cdf390000003c003cf1390000003c003c043a0000003c003c163a0000003c003c283a0000003c003c3a3a0000003c003c4c3a0000003c003c5f3a0000003c003c713a0000003c003c833a0000003c003c953aee20003c003ca63a6c2a003c003cb73acf2d003c003cc83a3430003c003cd83a8031003c003ce93acc32003c003cfa3a0c34003c003c0b3bb234003c003c1c3b5835003c003c2d3bff35003c003c3e3ba536003c003c4e3b4b37003c003c5f3bf137003c003c703b4b38003c003c813b9f38003c003c923bf238003c003ca33b4539003c003cb43b9839003c003cc43beb39003c003cd53b3e3a003c003ce63b913a003c
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 

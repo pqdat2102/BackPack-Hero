@@ -1,0 +1,15 @@
+enemy_3.png
+size:725,534
+filter:Linear,Linear
+pma:true
+eye
+bounds:443,29,265,129
+offsets:1,1,267,131
+head
+bounds:2,160,519,372
+offsets:0,1,519,374
+plate
+bounds:2,2,439,156
+offsets:1,1,441,159
+tongue
+bounds:523,179,200,353

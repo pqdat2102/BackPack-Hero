@@ -1,0 +1,25 @@
+12 ANIM.png
+size:1048,1048
+filter:Linear,Linear
+pma:true
+Hand_1_R 0
+bounds:659,480,142,231
+Hand_2_L
+bounds:590,278,144,189
+offsets:1,1,146,191
+Hand_2_L 0
+bounds:803,480,142,231
+Hand_2_R
+bounds:590,87,144,189
+offsets:1,1,146,191
+Head
+bounds:2,469,655,576
+offsets:1,1,657,578
+body
+bounds:2,2,465,586
+offsets:0,0,465,587
+rotate:90
+ear_L
+bounds:659,880,321,165
+ear_R
+bounds:659,713,321,165
