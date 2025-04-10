@@ -56,6 +56,8 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
             return;
         }
 
+        Debug.Log(currentWaveEnemies.Count + " enemies remaining in wave " + currentWave);
+
         // Lấy điểm spawn chính
         Transform spawnPoint = this.enemySpawnerController.EnemySpawnPoints.GetRandom();
         Vector3 centerPos = spawnPoint.position;
@@ -94,8 +96,8 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         // Lấy thời gian delay từ wave hiện tại
         float delay = waves[currentWave].delayBeforeWave;
         
-        // Nếu là wave đầu tiên hoặc wave cuối cùng, không có delay
-        if (currentWave == 0 || currentWave == waves.Count - 1)
+        // Nếu là wave đầu tiên không có delay
+        if (currentWave == 0 /*|| currentWave == waves.Count - 1*/)
         {
             delay = 0f;
         }

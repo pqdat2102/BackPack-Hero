@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class EnemyDamageReceiver : DamageReceiver
     [Header("Enemy")]
     [SerializeField] protected EnemyController enemyController;
 
+    public bool isAlive = true;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -17,11 +18,12 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         if (enemyController != null) return;
         this.enemyController = transform.parent.GetComponent<EnemyController>();
-        Debug.Log(transform.name + ": Loade EnemyController", gameObject);
+        Debug.Log(transform.name + ": Load EnemyController", gameObject);
     }
 
     protected override void OnDead()
     {
+        isAlive = false;
         //this.OnDeadFX();
         this.enemyController.EnemyDespawn.DespawnObject();
     }
@@ -42,5 +44,15 @@ public class EnemyDamageReceiver : DamageReceiver
     {
      /*   this.maxHP = this.enemyController.EnemySO.maxHP;*/
         base.Reborn();
+    }
+
+    public bool IsAlive()
+    {
+        return isAlive;
+    }
+
+    public float GetCurrentHP()
+    {
+        return currentHP; // Giả sử DamageReceiver có biến hp (HP hiện tại)
     }
 }

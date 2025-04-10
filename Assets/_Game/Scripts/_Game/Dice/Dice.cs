@@ -8,21 +8,18 @@ public class Dice : MonoBehaviour
     private float elapsedTime = 0f;
     private Vector3 startPos;
     [SerializeField] private Vector3 rotationSpeed; // Tốc độ quay
-    [SerializeField] private float maxHeight = 2f; // Độ cao tối đa bật lên (trục Z)
-    [SerializeField] private Quaternion targetRotation; // Góc quay mục tiêu khi dừng
+    [SerializeField] private float maxHeight = 1f; // Độ cao tối đa bật lên (trục Z)
+    private Quaternion targetRotation; // Góc quay mục tiêu khi dừng
+    private bool canRoll = true; // Kiểm soát việc quay xúc xắc
 
     private void Start()
     {
         startPos = this.transform.position;
+        StartRoll(); // Quay lần đầu tiên khi game bắt đầu
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isRolling)
-        {
-            StartRolling();
-        }
-
         if (isRolling)
         {
             elapsedTime += Time.deltaTime;
@@ -48,13 +45,21 @@ public class Dice : MonoBehaviour
                 transform.position = startPos;
                 transform.rotation = targetRotation; // Đảm bảo góc tròn hoàn toàn
                 isRolling = false;
+                Debug.Log("Dice: Quay xong");
                 ShowResult();
             }
         }
     }
 
-    void StartRolling()
+    public void StartRoll()
     {
+        if (!canRoll || isRolling)
+        {
+            Debug.Log($"Dice: Không thể quay - canRoll: {canRoll}, isRolling: {isRolling}");
+            return;
+        }
+
+        Debug.Log("Dice: Bắt đầu quay");
         isRolling = true;
         elapsedTime = 0f;
 
@@ -70,9 +75,8 @@ public class Dice : MonoBehaviour
         targetRotation = GetRotationForFace(face);
     }
 
-    Quaternion GetRotationForFace(int face)
+    private Quaternion GetRotationForFace(int face)
     {
-        // Định nghĩa góc quay theo yêu cầu của bạn
         switch (face)
         {
             case 1: return Quaternion.Euler(0, 0, 0);      // Mặt 6 (up = Vector3.up)
@@ -85,38 +89,13 @@ public class Dice : MonoBehaviour
         }
     }
 
-    void ShowResult()
+    private void ShowResult()
     {
         int face = GetDiceFace();
         Debug.Log("Giá trị xúc xắc: " + face);
-        StartCoroutine(SpawnBulletsSequentially(face));
     }
 
-    IEnumerator SpawnBulletsSequentially(int count)
-    {
-        // Vị trí spawn đạn (có thể điều chỉnh theo ý muốn)
-        Vector3 spawnPosition = this.transform.position;
-        
-        // Spawn số lượng đạn tương ứng với mặt xúc xắc, mỗi viên cách nhau 0.2 giây
-        for (int i = 0; i < count; i++)
-        {
-            // Tạo góc ngẫu nhiên cho mỗi viên đạn
-            float angle = 90f;
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            
-            // Spawn đạn thông qua BulletSpawner
-            Transform bullet = BulletSpawner.Instance.Spawn(BulletSpawner.bullet_1, spawnPosition, rotation);
-            if (bullet != null)
-            {
-                bullet.gameObject.SetActive(true);
-            }
-            
-            // Đợi 0.2 giây trước khi spawn viên đạn tiếp theo
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    int GetDiceFace()
+    public int GetDiceFace()
     {
         // Ngưỡng độ lệch tối đa (độ)
         float tolerance = 5f; // Chấp nhận sai lệch 5 độ
@@ -131,8 +110,18 @@ public class Dice : MonoBehaviour
         if (Quaternion.Angle(currentRotation, GetRotationForFace(3)) < tolerance) return 3; // Mặt 3
         if (Quaternion.Angle(currentRotation, GetRotationForFace(4)) < tolerance) return 4; // Mặt 4
 
-        // Dự phòng: Nếu không khớp, trả về mặt 1 (nên không xảy ra vì targetRotation luôn khớp)
         Debug.LogWarning("Không xác định được mặt, trả về mặc định");
         return 1;
+    }
+
+    public bool IsRolling()
+    {
+        return isRolling;
+    }
+
+    public void SetCanRoll(bool value)
+    {
+        Debug.Log($"Dice: SetCanRoll({value})");
+        canRoll = value;
     }
 }

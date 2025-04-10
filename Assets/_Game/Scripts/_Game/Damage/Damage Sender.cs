@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +11,16 @@ public class DamageSender : DicevsMonsterMonobehavior
         DamageReceiver damageReceiver = obj.GetComponentInChildren<DamageReceiver>(); ;
         if (damageReceiver == null) return;
         this.Send(damageReceiver);
-    }
+    } 
 
     public virtual void Send(DamageReceiver damageReceiver)
     {
         damageReceiver.Deduct(this.damage);
+    }
+
+    // Thêm phương thức để lấy damage
+    public virtual int GetDamage()
+    {
+        return damage;
     }
 }

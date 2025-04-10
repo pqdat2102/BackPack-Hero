@@ -12,13 +12,13 @@ public class BulletAbstract : DicevsMonsterMonobehavior
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadDamageReveiver();
+        this.LoadBulletController();
     }
 
-    protected virtual void LoadDamageReveiver()
+    protected virtual void LoadBulletController()
     {
         if (this.bulletController != null) return;
         this.bulletController = transform.parent.GetComponent<BulletController>();
-        Debug.Log(transform.name + ": LoadDamageReveiver", gameObject);
+        Debug.Log(transform.name + ": LoadBulletController", gameObject);
     }
 }

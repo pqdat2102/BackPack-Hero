@@ -350,12 +350,12 @@ namespace Spine.Unity.Editor {
 			if (material == null)
 				return true;
 
-			string errorMessage = null;
+			/*string errorMessage = null;
 			if (MaterialChecks.IsTextureSetupProblematic(material, PlayerSettings.colorSpace,
 				texImporter.sRGBTexture, texImporter.mipmapEnabled, texImporter.alphaIsTransparency,
 				texturePath, materialPath, ref errorMessage)) {
 				Debug.LogWarning(errorMessage, material);
-			}
+			}*/
 			return true;
 		}
 		#endregion
