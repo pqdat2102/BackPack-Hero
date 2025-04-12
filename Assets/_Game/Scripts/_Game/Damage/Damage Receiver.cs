@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class DamageReceiver : DicevsMonsterMonobehavior
 {
     [SerializeField] protected CircleCollider2D circleCollider2D;
-    [SerializeField] protected int currentHP = 1;
+    [SerializeField] protected int currentHP;
     [SerializeField] protected int maxHP = 3;
     [SerializeField] protected bool isDead = false;
 

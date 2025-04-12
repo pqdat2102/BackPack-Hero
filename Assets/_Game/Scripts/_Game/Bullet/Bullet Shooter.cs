@@ -5,8 +5,7 @@ public class BulletShooter : MonoBehaviour
 {
     [SerializeField] private Dice dice; // Tham chiếu đến Dice để lấy giá trị mặt xúc xắc
     [SerializeField] private float timeBetweenShoots = 0.2f; // Thời gian giữa các viên đạn
-    private BulletTargetFinder targetFinder; // Tham chiếu đến BulletTargetFinder
-    private bool isShooting = false; // Kiểm tra xem đang bắn hay không
+    private BulletFindTarget targetFinder; // Tham chiếu đến BulletFindTarget
 
     private void Start()
     {
@@ -16,11 +15,12 @@ public class BulletShooter : MonoBehaviour
             dice = FindObjectOfType<Dice>();
         }
 
-        // Lấy hoặc thêm BulletTargetFinder trên cùng GameObject
-        targetFinder = GetComponent<BulletTargetFinder>();
+        // Lấy hoặc thêm BulletFindTarget trên cùng GameObject
+        targetFinder = GetComponent<BulletFindTarget>();
         if (targetFinder == null)
         {
-            targetFinder = gameObject.AddComponent<BulletTargetFinder>();
+            Debug.Log("Không tìm thấy targetFinder!");
+            targetFinder = gameObject.AddComponent<BulletFindTarget>();
         }
 
         // Bắt đầu quy trình quay và bắn
@@ -31,39 +31,40 @@ public class BulletShooter : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("BulletShooter: Bắt đầu vòng lặp");
+            /*Debug.Log("BulletShooter: Bắt đầu vòng lặp");*/
+
+            // Reset danh sách assignedBullets trước khi bắt đầu lượt bắn mới
+            targetFinder.ResetAssignedBullets();
 
             // Đảm bảo Dice có thể quay
             dice.SetCanRoll(true);
 
             // Gọi Dice quay
-            Debug.Log("BulletShooter: Gọi Dice quay");
+            /*Debug.Log("BulletShooter: Gọi Dice quay");*/
             dice.StartRoll();
 
             // Chờ Dice bắt đầu quay
-            Debug.Log("BulletShooter: Chờ Dice bắt đầu quay");
+            /*Debug.Log("BulletShooter: Chờ Dice bắt đầu quay");*/
             yield return new WaitUntil(() => dice.IsRolling());
 
             // Chờ Dice quay xong
-            Debug.Log("BulletShooter: Chờ Dice quay xong");
+            /*Debug.Log("BulletShooter: Chờ Dice quay xong");*/
             yield return new WaitUntil(() => !dice.IsRolling());
 
             // Lấy giá trị mặt xúc xắc
             int face = dice.GetDiceFace();
-            Debug.Log("Bắn " + face + " viên đạn");
+            /*Debug.Log("Bắn " + face + " viên đạn");*/
 
             // Ngăn Dice quay trong lúc bắn
             dice.SetCanRoll(false);
 
             // Bắn đạn
-            isShooting = true;
-            Debug.Log("BulletShooter: Bắt đầu bắn");
+            /*Debug.Log("BulletShooter: Bắt đầu bắn");*/
             yield return StartCoroutine(SpawnBulletsSequentially(face));
-            isShooting = false;
-            Debug.Log("BulletShooter: Bắn xong");
+            /*Debug.Log("BulletShooter: Bắn xong");*/
 
             // Thêm một chút thời gian chờ để tránh lặp quá nhanh
-            yield return new WaitForSeconds(0.5f); // Tăng thời gian chờ để dễ quan sát
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -73,16 +74,17 @@ public class BulletShooter : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Debug.Log($"BulletShooter: Bắn viên đạn thứ {i + 1}/{count}");
+            /*Debug.Log($"BulletShooter: Bắn viên đạn thứ {i + 1}/{count}");*/
 
             // Tìm mục tiêu mới cho mỗi viên đạn trước khi bắn
             Transform bulletTarget = targetFinder.FindTarget(spawnPosition);
+            Debug.Log("Mục tiêu hiện tại: " + (bulletTarget != null ? bulletTarget.name : "null"));
             if (bulletTarget == null)
             {
-                Debug.Log("Không có mục tiêu để bắn, vẫn tiếp tục bắn các viên đạn còn lại");
+                Debug.Log("Không có mục tiêu, viên đạn sẽ bay thẳng.");
             }
 
-            // Tạo góc cho viên đạn (hướng về mục tiêu hoặc hướng mặc định nếu không có mục tiêu)
+            // Tạo góc ban đầu cho viên đạn
             float angle = 90f; // Hướng mặc định nếu không có mục tiêu
             if (bulletTarget != null)
             {
@@ -93,20 +95,17 @@ public class BulletShooter : MonoBehaviour
 
             // Spawn đạn
             Transform bullet = BulletSpawner.Instance.Spawn(BulletSpawner.bullet_1, spawnPosition, rotation);
-            if (bullet != null)
-            {
-                // Lấy BulletFly và gán mục tiêu
-                BulletFly bulletFly = bullet.GetComponentInChildren<BulletFly>();
-                if (bulletFly != null && bulletTarget != null)
-                {
-                    bulletFly.SetTarget(bulletTarget);
-                }
+            bullet.gameObject.SetActive(true);
 
-                bullet.gameObject.SetActive(true);
+            // Gán mục tiêu cho viên đạn
+            BulletFly bulletFly = bullet.GetComponentInChildren<BulletFly>();
+            if (bulletFly != null)
+            {
+                bulletFly.SetTarget(bulletTarget);
             }
             else
             {
-                Debug.LogWarning("Không thể spawn viên đạn!");
+                Debug.LogWarning("Không tìm thấy BulletFly component trên viên đạn!");
             }
 
             // Đợi trước khi bắn viên đạn tiếp theo

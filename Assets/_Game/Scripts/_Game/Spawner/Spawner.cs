@@ -12,6 +12,7 @@ public abstract class Spawner : DicevsMonsterMonobehavior
 
     [SerializeField] private List<Transform> prefabs;
     [SerializeField] private List<Transform> poolObjs;
+    [SerializeField] private List<Transform> listEnemy;
 
     protected override void LoadComponents()
     {
@@ -75,6 +76,7 @@ public abstract class Spawner : DicevsMonsterMonobehavior
         }
 
         Transform newPrefab = Instantiate(prefab);
+        listEnemy.Add(newPrefab);
         newPrefab.name = prefab.name;
         return newPrefab;
     }

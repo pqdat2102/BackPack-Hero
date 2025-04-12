@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 public class EnemySpawnWave : DicevsMonsterMonobehavior
 {
-    [Header("Enemy Spawner Random")]
+    [Header("Enemy Spawner Wave")]
     [SerializeField] protected EnemySpawnerController enemySpawnerController;
     [SerializeField] protected List<WaveConfig> waves = new List<WaveConfig>(); // Danh sách các wave
     [SerializeField] protected float spawnRadius = 5f; // Bán kính vùng spawn ngẫu nhiên
+    [SerializeField] private TextMeshProUGUI waveText;
 
     private int currentWave = 0; // Index của wave hiện tại
     private bool isSpawning = false;
@@ -31,7 +33,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
             Debug.LogWarning("No waves configured! Adding default wave.");
             AddDefaultWave();
         }
-        
+        UpdateWaveText();
         // Bắt đầu wave đầu tiên ngay lập tức
         StartFirstWave();
     }
@@ -50,8 +52,9 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
 
     protected virtual void EnemySpawning()
     {
-        if (currentWaveEnemies.Count == 0)
+        if (currentWaveEnemies.Count <= 0)
         {
+
             EndWave();
             return;
         }
@@ -103,6 +106,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         }
         
         yield return new WaitForSeconds(delay);
+        UpdateWaveText();
         isSpawning = true;
         PrepareWaveEnemies();
     }
@@ -144,6 +148,11 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
             list[i] = list[j];
             list[j] = temp;
         }
+    }
+
+    protected virtual void UpdateWaveText()
+    {
+        waveText.text = "Wave: " + (currentWave + 1) + "/" + waves.Count;
     }
 }
 

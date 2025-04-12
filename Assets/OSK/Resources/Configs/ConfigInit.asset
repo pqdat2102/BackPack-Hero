@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838169ba65e74205878bf3dd11bf2c0c, type: 3}
+  m_Name: ConfigInit
+  m_EditorClassIdentifier: 
+  targetFrameRate: 60
+  vSyncCount: 0
+  logTest: 1
+  packageName: 
+  appstoreID: 
+  encryptKey: b14ca5898a4e4133bbce2ea2315a1916
+  data:
+    listViewS0: {fileID: 0}
+    listSoundSo: {fileID: 0}
+    uiParticleSO: {fileID: 0}
+  setting:
+    isMusicOnDefault: 1
+    isSoundOnDefault: 1
+    isVibrationOnDefault: 1
+    isCheckInternetDefault: 1
+    languageDefault: 10
+  path:
+    pathLoadFileCsv: Localization/Localization

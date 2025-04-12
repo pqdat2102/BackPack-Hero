@@ -7,6 +7,10 @@ public class EnemyDamageReceiver : DamageReceiver
     [Header("Enemy")]
     [SerializeField] protected EnemyController enemyController;
 
+    [Header("Rewards")]
+    [SerializeField] private int goldReward = 1;
+    [SerializeField] private int expReward = 10;
+
     public bool isAlive = true;
     protected override void LoadComponents()
     {
@@ -25,6 +29,8 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         isAlive = false;
         //this.OnDeadFX();
+        PlayerResources.Instance.AddGold(goldReward);
+        PlayerResources.Instance.AddExperience(expReward);
         this.enemyController.EnemyDespawn.DespawnObject();
     }
 
