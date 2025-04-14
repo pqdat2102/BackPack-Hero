@@ -12,23 +12,18 @@ public class PlayerResources : MonoBehaviour
     [SerializeField] private int levelBuff = 1;
     [SerializeField] private int expPerLevel = 50;
 
-    [Header("UI References")]
-    [SerializeField] private TextMeshProUGUI goldText;
-    [SerializeField] private TextMeshProUGUI expText;
-    [SerializeField] private TextMeshProUGUI levelBuffText;
+    [Header("Upgrade")]
+    [SerializeField] private UpdateUI updateUI; 
+    [SerializeField] private UpdateBuff updateBuff;
+    [SerializeField] private Dice dice;
 
-    [Header("Upgrade Popup")]
-    [SerializeField] private UpdateBuff updateBuff; // Tham chiếu đến UpgradePopup
-    [SerializeField] private Dice dice; // Tham chiếu đến Dice
-
-    private bool isWaitingForUpgrade = false; // Trạng thái chờ người chơi chọn nâng cấp
+    private bool isWaitingForUpgrade = false;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -38,23 +33,20 @@ public class PlayerResources : MonoBehaviour
 
     private void Start()
     {
-        UpdateUI();
+        updateUI.UpdateUIinGameplayScene();
     }
 
     public void AddGold(int amount)
     {
         gold += amount;
-        Debug.Log($"Người chơi nhận được {amount} vàng. Tổng vàng: {gold}");
-        UpdateUI();
+        updateUI.UpdateUIinGameplayScene();
     }
 
     public void AddExperience(int amount)
     {
         experience += amount;
-        Debug.Log($"Người chơi nhận được {amount} kinh nghiệm. Tổng kinh nghiệm: {experience}");
-
         CheckLevelUp();
-        UpdateUI();
+        updateUI.UpdateUIinGameplayScene();
     }
 
     private void CheckLevelUp()
@@ -84,26 +76,6 @@ public class PlayerResources : MonoBehaviour
                 Time.timeScale = 1f; 
             });
         }
-        else
-        {
-            Debug.LogWarning("UpgradePopup hoặc Dice chưa được gán trong PlayerResources!");
-        }
-    }
-
-    private void UpdateUI()
-    {
-        if (goldText != null)
-        {
-            goldText.text = $"GOLD: {gold}";
-        }
-        if (expText != null)
-        {
-            expText.text = $"EXP: {experience}/{expPerLevel}";
-        }
-        if (levelBuffText != null)
-        {
-            levelBuffText.text = $"LEVEL BUFF: {levelBuff}";
-        }
     }
 
     public int GetGold()
@@ -121,7 +93,10 @@ public class PlayerResources : MonoBehaviour
         return levelBuff;
     }
 
-    // (Tùy chọn) Kiểm tra xem có đang chờ người chơi chọn nâng cấp không
+    public int GetExpPerLevel()
+    {
+        return expPerLevel;
+    }   
     public bool IsWaitingForUpgrade()
     {
         return isWaitingForUpgrade;

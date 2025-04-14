@@ -6,11 +6,11 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
 {
     [Header("Enemy Spawner Wave")]
     [SerializeField] protected EnemySpawnerController enemySpawnerController;
+    [SerializeField] protected UpdateUI updateUI;
     [SerializeField] protected List<WaveConfig> waves = new List<WaveConfig>(); // Danh sách các wave
     [SerializeField] protected float spawnRadius = 5f; // Bán kính vùng spawn ngẫu nhiên
-    [SerializeField] private TextMeshProUGUI waveText;
 
-    private int currentWave = 0; // Index của wave hiện tại
+    private int currentWave = 0;
     private bool isSpawning = false;
     private List<WaveEnemy> currentWaveEnemies = new List<WaveEnemy>();
 
@@ -33,7 +33,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
             Debug.LogWarning("No waves configured! Adding default wave.");
             AddDefaultWave();
         }
-        UpdateWaveText();
+        updateUI.UpdateWaveText();
         // Bắt đầu wave đầu tiên ngay lập tức
         StartFirstWave();
     }
@@ -59,7 +59,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
             return;
         }
 
-        Debug.Log(currentWaveEnemies.Count + " enemies remaining in wave " + currentWave);
+        //Debug.Log(currentWaveEnemies.Count + " enemies remaining in wave " + currentWave);
 
         // Lấy điểm spawn chính
         Transform spawnPoint = this.enemySpawnerController.EnemySpawnPoints.GetRandom();
@@ -106,7 +106,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         }
         
         yield return new WaitForSeconds(delay);
-        UpdateWaveText();
+        updateUI.UpdateWaveText();
         isSpawning = true;
         PrepareWaveEnemies();
     }
@@ -150,9 +150,14 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         }
     }
 
-    protected virtual void UpdateWaveText()
+    public virtual int GetCurrentWave()
     {
-        waveText.text = "Wave: " + (currentWave + 1) + "/" + waves.Count;
+        return currentWave;
+    }
+
+    public virtual int GetTotalWaves()
+    {
+        return waves.Count;
     }
 }
 

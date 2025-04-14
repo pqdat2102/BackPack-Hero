@@ -6,6 +6,7 @@ public class EnemyDamageReceiver : DamageReceiver
 {
     [Header("Enemy")]
     [SerializeField] protected EnemyController enemyController;
+    [SerializeField] protected HealthBar healthBar;
 
     [Header("Rewards")]
     [SerializeField] private int goldReward = 1;
@@ -16,6 +17,14 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         base.LoadComponents();
         this.LoadEnemyController();
+        this.LoadHealthBar();
+    }
+
+    protected virtual void LoadHealthBar()
+    {
+        if (healthBar != null) return;
+        this.healthBar = GetComponentInChildren<HealthBar>();
+        Debug.Log(transform.name + ": Load HealthBar", gameObject);
     }
 
     protected virtual void LoadEnemyController()
@@ -23,6 +32,15 @@ public class EnemyDamageReceiver : DamageReceiver
         if (enemyController != null) return;
         this.enemyController = transform.parent.GetComponent<EnemyController>();
         Debug.Log(transform.name + ": Load EnemyController", gameObject);
+    }
+
+    public override void Deduct(int damage)
+    {
+        base.Deduct(damage);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHP, maxHP);
+        }
     }
 
     protected override void OnDead()
@@ -34,22 +52,14 @@ public class EnemyDamageReceiver : DamageReceiver
         this.enemyController.EnemyDespawn.DespawnObject();
     }
 
-   /* protected virtual void OnDeadFX()
-    {
-        string fxName = this.GetOnDeadFXName();
-        Transform fxOnDead = FXSpawner.Instance.Spawn(fxName, transform.position, transform.rotation);
-        fxOnDead.gameObject.SetActive(true);
-    }
-
-    protected virtual string GetOnDeadFXName()
-    {
-        return FXSpawner.smoke_1;
-    }*/
-
     public override void Reborn()
     {
      /*   this.maxHP = this.enemyController.EnemySO.maxHP;*/
         base.Reborn();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHP, maxHP);
+        }
     }
 
     public bool IsAlive()
@@ -61,4 +71,25 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         return currentHP; // Giả sử DamageReceiver có biến hp (HP hiện tại)
     }
+
+    public float GetMaxHP()
+    {
+        return maxHP;
+    }
+
+
+
+
+    /* protected virtual void OnDeadFX()
+ {
+     string fxName = this.GetOnDeadFXName();
+     Transform fxOnDead = FXSpawner.Instance.Spawn(fxName, transform.position, transform.rotation);
+     fxOnDead.gameObject.SetActive(true);
+ }
+
+ protected virtual string GetOnDeadFXName()
+ {
+     return FXSpawner.smoke_1;
+ }*/
+
 }

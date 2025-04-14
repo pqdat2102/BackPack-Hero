@@ -19,7 +19,7 @@ public class BulletShooter : MonoBehaviour
         targetFinder = GetComponent<BulletFindTarget>();
         if (targetFinder == null)
         {
-            Debug.Log("Không tìm thấy targetFinder!");
+            //Debug.Log("Không tìm thấy targetFinder!");
             targetFinder = gameObject.AddComponent<BulletFindTarget>();
         }
 
@@ -78,11 +78,11 @@ public class BulletShooter : MonoBehaviour
 
             // Tìm mục tiêu mới cho mỗi viên đạn trước khi bắn
             Transform bulletTarget = targetFinder.FindTarget(spawnPosition);
-            Debug.Log("Mục tiêu hiện tại: " + (bulletTarget != null ? bulletTarget.name : "null"));
-            if (bulletTarget == null)
-            {
-                Debug.Log("Không có mục tiêu, viên đạn sẽ bay thẳng.");
-            }
+
+            //if (bulletTarget == null)
+            //{
+            //    Debug.Log("Không có mục tiêu, viên đạn sẽ bay thẳng.");
+            //}
 
             // Tạo góc ban đầu cho viên đạn
             float angle = 90f; // Hướng mặc định nếu không có mục tiêu
@@ -97,16 +97,16 @@ public class BulletShooter : MonoBehaviour
             Transform bullet = BulletSpawner.Instance.Spawn(BulletSpawner.bullet_1, spawnPosition, rotation);
             bullet.gameObject.SetActive(true);
 
-            // Gán mục tiêu cho viên đạn
-            BulletFly bulletFly = bullet.GetComponentInChildren<BulletFly>();
-            if (bulletFly != null)
-            {
-                bulletFly.SetTarget(bulletTarget);
-            }
-            else
-            {
-                Debug.LogWarning("Không tìm thấy BulletFly component trên viên đạn!");
-            }
+            //// Gán mục tiêu cho viên đạn
+            //BulletFly bulletFly = bullet.GetComponentInChildren<BulletFly>();
+            //if (bulletFly != null)
+            //{
+            //    bulletFly.SetTarget(bulletTarget);
+            //}
+            //else
+            //{
+            //    //Debug.LogWarning("Không tìm thấy BulletFly component trên viên đạn!");
+            //}
 
             // Đợi trước khi bắn viên đạn tiếp theo
             yield return new WaitForSeconds(timeBetweenShoots);

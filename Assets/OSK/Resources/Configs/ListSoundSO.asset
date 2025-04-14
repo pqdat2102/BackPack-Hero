@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d744469313e62f42aa74366f2823077, type: 3}
-  m_Name: MainModules
+  m_Script: {fileID: 11500000, guid: 6fd90df3de89b6c4cac5c43fe66b87d5, type: 3}
+  m_Name: ListSoundSO
   m_EditorClassIdentifier: 
-  _modules: -6145
-  title: Select the modules you want to enable in the game.
+  filePathSoundID: Assets
+  maxCapacityMusic: 5
+  maxCapacitySFX: 25
+  _listSoundInfos: []

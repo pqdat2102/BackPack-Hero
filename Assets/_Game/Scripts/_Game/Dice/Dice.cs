@@ -25,6 +25,11 @@ public class Dice : MonoBehaviour
 
     private void Update()
     {
+        Roller();
+    }
+
+    private void Roller()
+    {
         if (isRolling)
         {
             elapsedTime += Time.deltaTime;
@@ -146,4 +151,5 @@ public class Dice : MonoBehaviour
         //Debug.Log($"Dice: SetCanRoll({value})");
         canRoll = value;
     }
+
 }

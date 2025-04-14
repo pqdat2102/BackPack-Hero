@@ -89,7 +89,7 @@ public class UpdateBuff : MonoBehaviour
         for (int i = 0; i < numberOfFaces && i < faceIndices.Count; i++)
         {
             int faceIndex = faceIndices[i];
-            int currentValue = int.Parse(dice.GetComponent<Dice>().faceTexts[faceIndex].text);
+            int currentValue = int.Parse(dice.faceTexts[faceIndex].text);
             currentValue += amount;
             dice.GetComponent<Dice>().faceTexts[faceIndex].text = currentValue.ToString();
             Debug.Log($"Mặt {faceIndex + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");
@@ -99,11 +99,11 @@ public class UpdateBuff : MonoBehaviour
     // Tăng giá trị cho tất cả các mặt
     private void UpgradeAllFaces(int amount)
     {
-        for (int i = 0; i < dice.GetComponent<Dice>().faceTexts.Count; i++)
+        for (int i = 0; i < dice.faceTexts.Count; i++)
         {
-            int currentValue = int.Parse(dice.GetComponent<Dice>().faceTexts[i].text);
+            int currentValue =  dice.GetDiceFace();
             currentValue += amount;
-            dice.GetComponent<Dice>().faceTexts[i].text = currentValue.ToString();
+            dice.faceTexts[i].text = currentValue.ToString();
             Debug.Log($"Mặt {i + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");
         }
     }

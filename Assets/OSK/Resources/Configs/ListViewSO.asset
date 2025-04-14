@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d744469313e62f42aa74366f2823077, type: 3}
-  m_Name: MainModules
+  m_Script: {fileID: 11500000, guid: 2acc871aca5241cc9e1e19e630375560, type: 3}
+  m_Name: ListViewSO
   m_EditorClassIdentifier: 
-  _modules: -6145
-  title: Select the modules you want to enable in the game.
+  _listView:
+  - path: GameplayUI.prefab
+    depth: 0
+    view: {fileID: 4649647779613833278, guid: e344812e11ac71d43be6a0e6adf2f13f, type: 3}

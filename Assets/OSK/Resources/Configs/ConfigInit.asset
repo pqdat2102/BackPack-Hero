@@ -19,9 +19,9 @@ MonoBehaviour:
   appstoreID: 
   encryptKey: b14ca5898a4e4133bbce2ea2315a1916
   data:
-    listViewS0: {fileID: 0}
-    listSoundSo: {fileID: 0}
-    uiParticleSO: {fileID: 0}
+    listViewS0: {fileID: 11400000, guid: bbcea83ce5bf33344bc643333e856ae7, type: 2}
+    listSoundSo: {fileID: 11400000, guid: b858e62e5e279d0448b2f9af6dd658b3, type: 2}
+    uiParticleSO: {fileID: 11400000, guid: ef2c9e668decd744d9ba30a301ee0e3e, type: 2}
   setting:
     isMusicOnDefault: 1
     isSoundOnDefault: 1
