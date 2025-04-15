@@ -31,7 +31,7 @@ public class BulletShooter : MonoBehaviour
         while (true)
         {
             // Reset danh sách assignedBullets trước khi bắt đầu lượt bắn mới
-            /*targetFinder.ResetAssignedBullets();*/
+            targetFinder.ResetAssignedBullets();
 
             // Đảm bảo Dice có thể quay
             dice.SetCanRoll(true);
