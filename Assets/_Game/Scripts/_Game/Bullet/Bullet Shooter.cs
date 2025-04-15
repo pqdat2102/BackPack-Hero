@@ -19,7 +19,6 @@ public class BulletShooter : MonoBehaviour
         targetFinder = GetComponent<BulletFindTarget>();
         if (targetFinder == null)
         {
-            //Debug.Log("Không tìm thấy targetFinder!");
             targetFinder = gameObject.AddComponent<BulletFindTarget>();
         }
 
@@ -31,58 +30,50 @@ public class BulletShooter : MonoBehaviour
     {
         while (true)
         {
-            /*Debug.Log("BulletShooter: Bắt đầu vòng lặp");*/
-
             // Reset danh sách assignedBullets trước khi bắt đầu lượt bắn mới
-            targetFinder.ResetAssignedBullets();
+            /*targetFinder.ResetAssignedBullets();*/
 
             // Đảm bảo Dice có thể quay
             dice.SetCanRoll(true);
 
             // Gọi Dice quay
-            /*Debug.Log("BulletShooter: Gọi Dice quay");*/
             dice.StartRoll();
 
             // Chờ Dice bắt đầu quay
-            /*Debug.Log("BulletShooter: Chờ Dice bắt đầu quay");*/
             yield return new WaitUntil(() => dice.IsRolling());
 
             // Chờ Dice quay xong
-            /*Debug.Log("BulletShooter: Chờ Dice quay xong");*/
             yield return new WaitUntil(() => !dice.IsRolling());
 
             // Lấy giá trị mặt xúc xắc
-            int face = dice.GetDiceFace();
-            /*Debug.Log("Bắn " + face + " viên đạn");*/
+            int bulletCount = dice.GetNumberBullet(); // Số đạn từ faceTexts
+            int faceValue = dice.GetFaceIndexValue(); // Giá trị mặt (1-6) để chọn loại đạn
+            /*Debug.Log($"Dice: bulletCount={bulletCount}, faceValue={faceValue}");*/
 
             // Ngăn Dice quay trong lúc bắn
             dice.SetCanRoll(false);
 
             // Bắn đạn
-            /*Debug.Log("BulletShooter: Bắt đầu bắn");*/
-            yield return StartCoroutine(SpawnBulletsSequentially(face));
-            /*Debug.Log("BulletShooter: Bắn xong");*/
+            yield return StartCoroutine(SpawnBulletsSequentially(bulletCount, faceValue));
 
+            // Couldow đây ( nhớ chỉnh )
             // Thêm một chút thời gian chờ để tránh lặp quá nhanh
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.75f);
         }
     }
 
-    private IEnumerator SpawnBulletsSequentially(int count)
+    private IEnumerator SpawnBulletsSequentially(int count, int faceValue)
     {
         Vector3 spawnPosition = this.transform.position;
 
+        // Xác định loại đạn dựa trên mặt xúc xắc (lẻ: thẳng, chẵn: cong)
+        string bulletType = (faceValue % 2 != 0) ? BulletSpawner.bullet_1 : BulletSpawner.bullet_2;
+        /*Debug.Log($"Bullet type: {bulletType}");*/
+
         for (int i = 0; i < count; i++)
         {
-            /*Debug.Log($"BulletShooter: Bắn viên đạn thứ {i + 1}/{count}");*/
-
             // Tìm mục tiêu mới cho mỗi viên đạn trước khi bắn
             Transform bulletTarget = targetFinder.FindTarget(spawnPosition);
-
-            //if (bulletTarget == null)
-            //{
-            //    Debug.Log("Không có mục tiêu, viên đạn sẽ bay thẳng.");
-            //}
 
             // Tạo góc ban đầu cho viên đạn
             float angle = 90f; // Hướng mặc định nếu không có mục tiêu
@@ -93,20 +84,51 @@ public class BulletShooter : MonoBehaviour
             }
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-            // Spawn đạn
-            Transform bullet = BulletSpawner.Instance.Spawn(BulletSpawner.bullet_1, spawnPosition, rotation);
+            // Spawn đạn dựa trên loại
+            Transform bullet = BulletSpawner.Instance.Spawn(bulletType, spawnPosition, rotation);
             bullet.gameObject.SetActive(true);
 
-            //// Gán mục tiêu cho viên đạn
-            //BulletFly bulletFly = bullet.GetComponentInChildren<BulletFly>();
-            //if (bulletFly != null)
-            //{
-            //    bulletFly.SetTarget(bulletTarget);
-            //}
-            //else
-            //{
-            //    //Debug.LogWarning("Không tìm thấy BulletFly component trên viên đạn!");
-            //}
+            // Gán mục tiêu cho viên đạn
+            if (bulletType == BulletSpawner.bullet_1)
+            {
+                BulletMoveStraight bulletMoveStraight = bullet.GetComponentInChildren<BulletMoveStraight>();
+                if (bulletMoveStraight != null)
+                {
+                    if (bulletTarget != null)
+                    {
+                        bulletMoveStraight.SetTarget(bulletTarget);
+                    }
+                    else
+                    {
+                        BulletSpawner.Instance.Despawn(bullet);
+                        Debug.Log("Không tìm thấy mục tiêu cho viên đạn thẳng, đã hủy viên đạn!");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Không tìm thấy BulletMoveStraight component trên viên đạn!");
+                }
+            }
+            else
+            {
+                BulletMoveCurved bulletMoveCurved = bullet.GetComponentInChildren<BulletMoveCurved>();
+                if (bulletMoveCurved != null)
+                {
+                    if (bulletTarget != null)
+                    {
+                        bulletMoveCurved.SetTarget(bulletTarget);
+                    }
+                    else
+                    {
+                        BulletSpawner.Instance.Despawn(bullet);
+                        Debug.Log("Không tìm thấy mục tiêu cho viên đạn cong, đã hủy viên đạn!");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Không tìm thấy BulletMoveCurved component trên viên đạn!");
+                }
+            }
 
             // Đợi trước khi bắn viên đạn tiếp theo
             yield return new WaitForSeconds(timeBetweenShoots);

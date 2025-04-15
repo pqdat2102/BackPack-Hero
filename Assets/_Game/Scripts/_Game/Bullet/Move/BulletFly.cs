@@ -20,6 +20,7 @@ public class BulletFly : BulletAbstract
         // Nếu không có mục tiêu, di chuyển thẳng theo hướng hiện tại
         if (target == null || !target.gameObject.activeInHierarchy)
         {
+            Debug.Log("Khong co target, dan di chuyen thang");
             transform.parent.position += transform.parent.right * speed * Time.deltaTime;
             return;
         }
@@ -34,12 +35,6 @@ public class BulletFly : BulletAbstract
 
         // Di chuyển thẳng đến mục tiêu
         transform.parent.position = Vector3.MoveTowards(transform.parent.position, target.position, speed * Time.deltaTime);
-
-        // (Tùy chọn) Nếu viên đạn đến gần mục tiêu, có thể xử lý va chạm hoặc tắt viên đạn
-        if (Vector3.Distance(transform.parent.position, target.position) < 0.1f)
-        {
-            // Xử lý va chạm hoặc tắt viên đạn (tùy vào logic game của bạn)
-            // Ví dụ: gameObject.SetActive(false);
-        }
+        Debug.Log("co muc tieu di chuyen thang");
     }
 }

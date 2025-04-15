@@ -77,9 +77,6 @@ public class EnemyDamageReceiver : DamageReceiver
         return maxHP;
     }
 
-
-
-
     /* protected virtual void OnDeadFX()
  {
      string fxName = this.GetOnDeadFXName();

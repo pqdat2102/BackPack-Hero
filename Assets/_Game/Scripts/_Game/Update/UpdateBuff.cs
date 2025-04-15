@@ -92,7 +92,7 @@ public class UpdateBuff : MonoBehaviour
             int currentValue = int.Parse(dice.faceTexts[faceIndex].text);
             currentValue += amount;
             dice.GetComponent<Dice>().faceTexts[faceIndex].text = currentValue.ToString();
-            Debug.Log($"Mặt {faceIndex + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");
+            /*Debug.Log($"Mặt {faceIndex + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");*/
         }
     }
 
@@ -101,10 +101,10 @@ public class UpdateBuff : MonoBehaviour
     {
         for (int i = 0; i < dice.faceTexts.Count; i++)
         {
-            int currentValue =  dice.GetDiceFace();
+            int currentValue =  dice.GetNumberBullet();
             currentValue += amount;
             dice.faceTexts[i].text = currentValue.ToString();
-            Debug.Log($"Mặt {i + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");
+            /*Debug.Log($"Mặt {i + 1} tăng giá trị lên {amount}. Giá trị mới: {currentValue}");*/
         }
     }
 }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
 public class EnemySpawnWave : DicevsMonsterMonobehavior
 {
     [Header("Enemy Spawner Wave")]
     [SerializeField] protected EnemySpawnerController enemySpawnerController;
     [SerializeField] protected UpdateUI updateUI;
     [SerializeField] protected List<WaveConfig> waves = new List<WaveConfig>(); // Danh sách các wave
-    [SerializeField] protected float spawnRadius = 5f; // Bán kính vùng spawn ngẫu nhiên
+    [SerializeField] protected float rectWidth = 5f; // Chiều rộng vùng spawn hình chữ nhật
+    [SerializeField] protected float rectHeight = 1.5f; // Chiều cao vùng spawn hình chữ nhật
 
     private int currentWave = 0;
     private bool isSpawning = false;
@@ -19,6 +21,7 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         base.LoadComponents();
         this.LoadEnemyController();
     }
+
     protected virtual void LoadEnemyController()
     {
         if (this.enemySpawnerController != null) return;
@@ -54,7 +57,6 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
     {
         if (currentWaveEnemies.Count <= 0)
         {
-
             EndWave();
             return;
         }
@@ -68,9 +70,10 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
         // Spawn tất cả quái trong wave cùng một lúc với vị trí ngẫu nhiên
         foreach (WaveEnemy enemy in currentWaveEnemies)
         {
-            // Tạo vị trí ngẫu nhiên trong vùng spawn
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 randomPos = centerPos + new Vector3(randomCircle.x, randomCircle.y, 0);
+            // Tạo vị trí ngẫu nhiên trong vùng hình chữ nhật
+            float randomX = Random.Range(-rectWidth / 2f, rectWidth / 2f);
+            float randomY = Random.Range(-rectHeight / 2f, rectHeight / 2f);
+            Vector3 randomPos = centerPos + new Vector3(randomX, randomY, 0);
             Quaternion rot = transform.rotation;
 
             Transform obj = this.enemySpawnerController.EnemySpawner.Spawn(enemy.enemyPrefab, randomPos, rot);
@@ -98,19 +101,19 @@ public class EnemySpawnWave : DicevsMonsterMonobehavior
     {
         // Lấy thời gian delay từ wave hiện tại
         float delay = waves[currentWave].delayBeforeWave;
-        
+
         // Nếu là wave đầu tiên không có delay
         if (currentWave == 0 /*|| currentWave == waves.Count - 1*/)
         {
             delay = 0f;
         }
-        
+
         yield return new WaitForSeconds(delay);
         updateUI.UpdateWaveText();
         isSpawning = true;
         PrepareWaveEnemies();
     }
-    
+
     protected virtual void PrepareWaveEnemies()
     {
         // Chuẩn bị danh sách quái cho wave hiện tại
