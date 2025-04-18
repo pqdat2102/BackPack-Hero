@@ -16,6 +16,7 @@ public class BulletData
     public GameObject areaEffectPrefab;
     public float areaLifetime;
     public float areaDamage;
+    public float areaTimeGetDamage;
 
     public BulletData(BulletConfig config)
     {
@@ -32,6 +33,7 @@ public class BulletData
         this.areaEffectPrefab = config.areaEffectPrefab;
         this.areaLifetime = config.areaLifetime;
         this.areaDamage = config.areaDamage;
+        this.areaTimeGetDamage = config.areaTimeGetDamage;
     }
 }
 

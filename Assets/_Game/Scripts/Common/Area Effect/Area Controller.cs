@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using Unity.VisualScripting.FullSerializer;
@@ -12,7 +12,7 @@ public class AreaController : DicevsMonsterMonobehavior
     public AreaDespawn AreaDespawn { get => areaDespawn; }
 
     [SerializeField] protected AreaImpact areaImpact;
-    public AreaImpact AreaImpact { get => areaImpact; } 
+    public AreaImpact AreaImpact { get => areaImpact; }
 
     private static Dictionary<Transform, AreaImpact> activeZones = new Dictionary<Transform, AreaImpact>();
 
@@ -47,41 +47,38 @@ public class AreaController : DicevsMonsterMonobehavior
 
     public void ActivateAreaEffect(Vector3 position, Quaternion rotation, BulletData data, Transform enemy)
     {
-        if (activeZones.ContainsKey(enemy) && activeZones[enemy] != null)
+        if (activeZones.TryGetValue(enemy, out var existingImpact) && existingImpact != null)
         {
-            activeZones[enemy].ScaleSize(1.2f, 1.4f);
+            // hard code tại chưa làm SO
+            existingImpact.ScaleSize(1.2f, 1.4f);
+            return;
         }
-        else
-        {
-            Transform zone = AreaSpawner.Instance.Spawn(AreaSpawner.area_effect, position, rotation);
-            if (zone == null)
-            {
-                Debug.LogWarning("Failed to spawn Area Effect from AreaSpawner!");
-                return;
-            }
 
-            if (areaImpact != null)
-            {
-                areaImpact.Initialize(data.areaDamage, data.areaLifetime, enemy);
-                activeZones[enemy] = areaImpact;
-            }
+        Transform zone = AreaSpawner.Instance.Spawn(AreaSpawner.area_effect, position, rotation);
+        if (zone == null) return;
 
-            zone.gameObject.SetActive(true);
+        var zoneController = zone.GetComponent<AreaController>();
+        if (zoneController == null) return;
 
-            var zoneController = zone.GetComponent<AreaController>();
-            if (zoneController != null)
-            {
-                zoneController.StartCoroutine(zoneController.WaitDespawnArea());
-            }
-        }
+        zone.gameObject.SetActive(true);
+
+        // Khởi tạo các thành phần của zone mới spawn
+        zoneController.areaImpact.Initialize(data.areaDamage, data.areaLifetime, data.areaTimeGetDamage, enemy);
+        activeZones[enemy] = zoneController.areaImpact;
+
+        // Bắt đầu coroutine trên zone mới
+        zoneController.StartCoroutine(zoneController.WaitDespawnArea(data.areaLifetime));
     }
 
-    private IEnumerator WaitDespawnArea()
+
+    private IEnumerator WaitDespawnArea(float lifetime)
     {
-        yield return new WaitForSeconds(3);
-        areaDamageSender.DespawnArea();
+        yield return new WaitForSeconds(lifetime);
+        if (areaDespawn != null)
+        {
+            areaDespawn.DespawnObject();
+        }
     }
-
     public void RemoveZone(Transform enemy)
     {
         if (activeZones.ContainsKey(enemy))

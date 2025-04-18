@@ -11,10 +11,12 @@ public class AreaImpact : AreaAbstract
     [SerializeField] protected Rigidbody2D rb2d;
 
     private float lifetime;
-    private float damage = 10f;
-    private HashSet<Transform> damagedEnemies = new HashSet<Transform>();
+    private float damage;
     private Transform associatedEnemy;
 
+    private float timeGetDamage = 0.1f; // thời gian giữa 2 lần kích hoạt collider
+    private float nextToggleTime = 0f; // thời gian tiếp theo kích hoạt collider
+    private bool isColliderEnabled = true; // trạng thái kích hoạt collider
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -38,11 +40,12 @@ public class AreaImpact : AreaAbstract
         Debug.Log(transform.name + ": Load Rigidbody", gameObject);
     }
 
-    public void Initialize(float damage, float lifetime, Transform enemy)
+    public void Initialize(float damage, float lifetime, float timeGetDamage, Transform enemy)
     {
         this.damage = damage;
         this.lifetime = lifetime;
         this.associatedEnemy = enemy;
+        this.timeGetDamage = timeGetDamage;
 
         if (areaController != null)
         {
@@ -55,6 +58,8 @@ public class AreaImpact : AreaAbstract
         {
             Debug.LogError("areaController is null in AreaImpact Initialize!");
         }
+        capsuleCollider2D.enabled = true;
+        nextToggleTime = Time.time + timeGetDamage;
     }
 
     public void ScaleSize(float widthMultiplier, float heightMultiplier)
@@ -69,6 +74,20 @@ public class AreaImpact : AreaAbstract
         }
     }
 
+    private void Update()
+    {
+        if (Time.time >= nextToggleTime)
+        {
+            ToggleColliderState();
+            nextToggleTime = Time.time + timeGetDamage;
+        }
+    }
+
+    private void ToggleColliderState()
+    {
+        isColliderEnabled = !isColliderEnabled;
+        capsuleCollider2D.enabled = isColliderEnabled;
+    }
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         this.areaController.AreaDamageSender.Send(other.transform);

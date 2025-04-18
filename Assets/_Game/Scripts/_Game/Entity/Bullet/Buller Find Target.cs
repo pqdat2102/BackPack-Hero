@@ -13,7 +13,7 @@ public class BulletFindTarget : DicevsMonsterMonobehavior
     public void SetBulletDamage(float damage)
     {
         this.bulletDamage = damage;
-        //Debug.Log($"BulletFindTarget: BulletConfig set with damage: {damage}");
+        /*Debug.Log($"BulletFindTarget: BulletConfig set with damage: {damage}");*/
     }
 
     public List<Transform> FindEnemies()

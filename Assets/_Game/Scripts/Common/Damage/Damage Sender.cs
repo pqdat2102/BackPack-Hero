@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageSender : DicevsMonsterMonobehavior
 {
-    [SerializeField] protected int damage = 1;
+    [SerializeField] protected int damage;
 
     public virtual void Send(Transform obj)
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AreaDespawn : DespawnByTime
+public class AreaDespawn : DespawnByTime    
 {
     private float customLifetime;
 
@@ -10,7 +10,6 @@ public class AreaDespawn : DespawnByTime
         this.timeLimit = lifetime;
     }
 
-
     protected override void ResetValue()
     {
         base.ResetValue();
@@ -18,5 +17,10 @@ public class AreaDespawn : DespawnByTime
         {
             this.timeLimit = customLifetime;
         }
+    }
+
+    public override void DespawnObject()
+    {
+        AreaSpawner.Instance.Despawn(transform.parent);
     }
 }

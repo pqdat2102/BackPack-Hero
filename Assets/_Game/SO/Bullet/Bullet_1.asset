@@ -24,5 +24,6 @@ MonoBehaviour:
   childBulletCount: 5
   explosionRadius: 2
   areaEffectPrefab: {fileID: 3389118036119027495, guid: d235a55dcc2ba7c4892bc70e4542a9bf, type: 3}
-  areaLifetime: 3
-  areaDamage: 3
+  areaLifetime: 4
+  areaDamage: 2
+  areaTimeGetDamage: 1

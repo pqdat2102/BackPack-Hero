@@ -48,47 +48,15 @@ public class BulletShooter : MonoBehaviour
                     bulletController.SetData(bulletData);
                 }
 
-                if (bulletType == BulletSpawner.bullet_1)
+                // Lấy BulletMovement từ child object
+                BulletMovement bulletMovement = bullet.GetComponentInChildren<BulletMovement>();
+                if (bulletMovement != null)
                 {
-                    BulletMoveStraight bulletMoveStraight = bullet.GetComponentInChildren<BulletMoveStraight>();
-                    if (bulletMoveStraight != null)
-                    {
-                        if (bulletTarget != null)
-                        {
-                            bulletMoveStraight.SetTarget(bulletTarget);
-                            bulletMoveStraight.SetBulletMove(bulletData);
-                        }
-                        else
-                        {
-                            BulletSpawner.Instance.Despawn(bullet);
-                            Debug.Log("Không tìm thấy mục tiêu cho viên đạn thẳng, đã hủy viên đạn!");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Không tìm thấy BulletMoveStraight component trên viên đạn!");
-                    }
-                }
-                else
-                {
-                    BulletMoveCurved bulletMoveCurved = bullet.GetComponentInChildren<BulletMoveCurved>();
-                    if (bulletMoveCurved != null)
-                    {
-                        if (bulletTarget != null)
-                        {
-                            bulletMoveCurved.SetTarget(bulletTarget);
-                            bulletMoveCurved.SetBulletMove(bulletData);
-                        }
-                        else
-                        {
-                            BulletSpawner.Instance.Despawn(bullet);
-                            Debug.Log("Không tìm thấy mục tiêu cho viên đạn cong, đã hủy viên đạn!");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Không tìm thấy BulletMoveCurved component trên viên đạn!");
-                    }
+                    IMove movementStrategy = bulletType == BulletSpawner.bullet_1
+                        ? new StraightMove()
+                        : new CurvedMove(bulletData.rotationSpeed, bulletData.curvedHeight);
+
+                    bulletMovement.Initialize(bulletData, bulletTarget, movementStrategy);
                 }
             }
             else

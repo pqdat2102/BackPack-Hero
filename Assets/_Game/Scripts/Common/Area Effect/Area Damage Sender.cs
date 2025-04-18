@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class AreaDamageSender : DamageSender
@@ -26,10 +26,5 @@ public class AreaDamageSender : DamageSender
     public override void Send(DamageReceiver damageReceiver)
     {
         base.Send(damageReceiver);
-    }
-
-    public virtual void DespawnArea()
-    {
-        this.areaController.AreaDespawn.DespawnObject();
     }
 }

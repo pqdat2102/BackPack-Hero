@@ -41,8 +41,10 @@ public class BulletConfigEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Area Effect Parameters", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("areaEffectPrefab"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("areaDamage"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("areaLifetime"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("areaDamage"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("areaTimeGetDamage"));
+
         }
 
         serializedObject.ApplyModifiedProperties();

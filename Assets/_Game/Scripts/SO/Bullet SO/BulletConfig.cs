@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "BulletConfig", menuName = "Data/Bullet/BulletConfig")]
 public class BulletConfig : ScriptableObject
@@ -26,8 +26,9 @@ public class BulletConfig : ScriptableObject
     [SerializeField] public int childBulletCount = 5;
     [SerializeField] public float explosionRadius = 2f;
 
-    [Header("Area Effect Parameters")]
+    /*[Header("Area Effect Parameters")]*/
     [SerializeField] public GameObject areaEffectPrefab;
     [SerializeField] public float areaLifetime = 2f;
-    [SerializeField] public float areaDamage = 10f;
+    [SerializeField] public float areaDamage = 1f;
+    [SerializeField] public float areaTimeGetDamage = 0.1f; // thời gian giữa 2 lần kích hoạt collider
 }

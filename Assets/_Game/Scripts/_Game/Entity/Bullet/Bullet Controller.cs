@@ -22,8 +22,6 @@ public class BulletController : DicevsMonsterMonobehavior
 
     private IMove moveStrategy;
     private Transform target;
-
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -101,6 +99,11 @@ public class BulletController : DicevsMonsterMonobehavior
         {
             bulletDamageSender.SetDamage(bulletData.damage);
         }
+    }
+
+    public void RequestDespawn()
+    {
+        BulletDespaw.DespawnObject();
     }
     private void UpdateConfigFromPrefab()
     {
