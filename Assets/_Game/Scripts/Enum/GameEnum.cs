@@ -1,6 +1,3 @@
-
-namespace MSDefense
-{
     public class GameEnum
     {
         public enum TileState
@@ -41,4 +38,3 @@ namespace MSDefense
             ONEGIFT, MANYGIFT, STARTER, SKIN, NONE, SUPPORTVIP, SUPPORTNORMAL
         }
     }
-}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d4cab07a70b2e49b6c0549735b2a4c, type: 3}
+  m_Name: Bullet_1
+  m_EditorClassIdentifier: 
+  speed: 7
+  damage: 5
+  movementType: 0
+  rotationSpeed: 10
+  curvedHeight: 2
+  effectType: 2
+  effectDelay: 0
+  childBulletConfig:
+  - {fileID: 0}
+  childBulletCount: 5
+  explosionRadius: 2
+  areaEffectPrefab: {fileID: 3389118036119027495, guid: d235a55dcc2ba7c4892bc70e4542a9bf, type: 3}
+  areaLifetime: 3
+  areaDamage: 3
